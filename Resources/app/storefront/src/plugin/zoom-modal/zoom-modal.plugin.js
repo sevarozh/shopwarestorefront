@@ -268,7 +268,6 @@ export default class ZoomModalPlugin extends Plugin {
         if (!this._showModalListener) {
             this._showModalListener = () => {
                 this._initSlider(modal);
-                this._registerImageZoom();
 
                 this.$emitter.publish('modalShow', { modal });
             };
@@ -296,6 +295,7 @@ export default class ZoomModalPlugin extends Plugin {
         const slider = modal.querySelector(this.options.modalGallerySliderSelector);
 
         if (!slider) {
+            this._registerImageZoom();
             return;
         }
 
@@ -335,6 +335,7 @@ export default class ZoomModalPlugin extends Plugin {
             this.gallerySliderPlugin = window.PluginManager.getPluginInstanceFromElement(slider, 'GallerySlider');
             window.focusHandler.setFocus(galleryImages.item(parentSliderIndex));
 
+            this._registerImageZoom();
             this.$emitter.publish('initSlider');
         });
     }
